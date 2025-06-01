@@ -7,7 +7,13 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(req: NextRequest) {
   try {
     const evt = await verifyWebhook(req);
+     
 
+
+
+    //hame na deploy krna hoga vercel pe ab to actually see the webhook in action
+    //as we have to provide the endpoint to clerk dashboard
+    
     // Do something with payload
     // For this guide, log payload to console
     const { id } = evt.data;
