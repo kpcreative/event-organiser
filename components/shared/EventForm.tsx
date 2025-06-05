@@ -25,10 +25,13 @@ import { useUploadThing } from "@/lib/uploadthing";
 import DatePicker from "react-datepicker";
 import { Checkbox } from "../ui/checkbox";
 import { useRouter } from "next/navigation";
-import { createEvent } from "@/lib/actions/event.actions";
+import { createEvent, updateEvent } from "@/lib/actions/event.actions";
+import { IEvent } from "@/lib/database/models/event.model";
 type EventFormProps = {
   userId: string;
   type: "Create" | "Update";
+  event?: IEvent;
+  eventId?: string; // Optional, only needed for Update type
 };
 // In your React component EventForm, the type prop ('Create' | 'Update') is passed from the parent component that uses <EventForm />.
 
@@ -59,12 +62,14 @@ type EventFormProps = {
 // Edit
 // // In EditEventPage.tsx
 // <EventForm userId={currentUser.id} type="Update" />
-const EventForm = ({ userId, type }: EventFormProps) => {
+const EventForm = ({ userId, type ,event,eventId}: EventFormProps) => {
   const [files, setFiles] = useState<File[]>([]);
   const { startUpload } = useUploadThing("imageUploader");
   const router = useRouter();
   //lets keep the initial form value
-  const initialvalues = eventDefaultValues; //hamne default value create kr liya hai already isme eventDefaultvalue me you can go there and check it
+  const initialvalues = event && type==="Update" ? {...event,startDateTime:new Date(event.startDateTime),
+    endDateTime:new Date(event.endDateTime),
+  } :eventDefaultValues; //hamne default value create kr liya hai already isme eventDefaultvalue me you can go there and check it
   // 1. Define your form.
   const form = useForm<z.infer<typeof eventFormSchema>>({
     resolver: zodResolver(eventFormSchema),
@@ -129,27 +134,31 @@ const EventForm = ({ userId, type }: EventFormProps) => {
       }
     }
 
-    // if (type === "Update") {
-    //   if (!eventId) {
-    //     router.back();
-    //     return;
-    //   }
+    if (type === "Update") {
+      if (!eventId) {
+        router.back();//to go to the previous page if eventId is not provided
+        //if eventId is not provided then we will go back to the previous page
+        //this is useful when we are updating the event and eventId is not provided
+        //this will prevent the user from updating the event without providing the eventId
+        //so we will go back to the previous page
+        return;
+      }
 
-    //   try {
-    //     const updatedEvent = await updateEvent({
-    //       userId,
-    //       event: { ...values, imageUrl: uploadedImageUrl, _id: eventId },
-    //       path: `/events/${eventId}`,
-    //     });
+      try {
+        const updatedEvent = await updateEvent({
+          userId,
+          event: { ...values, imageUrl: uploadedImageUrl, _id: eventId },
+          path: `/events/${eventId}`,
+        });
 
-    //     if (updatedEvent) {
-    //       form.reset();
-    //       router.push(`/events/${updatedEvent._id}`);
-    //     }
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // }
+        if (updatedEvent) {
+          form.reset();
+          router.push(`/events/${updatedEvent._id}`);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
   }
   return (
     <div>

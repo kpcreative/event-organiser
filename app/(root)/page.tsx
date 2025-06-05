@@ -1,8 +1,19 @@
+import Collection from "@/components/shared/Collection";
 import { Button } from "@/components/ui/button";
+import { getAllEvents } from "@/lib/actions/event.actions";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Home() {
+export default async function Home() {
+  const events = await getAllEvents({
+    query: '',
+    category: '',
+    page: 1,
+    // page: searchParams.page as string || "1", // if searchParams.page is not present then default to 1
+    limit: 6
+  })
+  console.log("events", events);
+
   return (
     <>
       <section className="bg-primary-50 bg-dotted-pattern bg-contain py-5 md:py-10">
@@ -36,7 +47,15 @@ export default function Home() {
           Search 
           CategoryFilter
         </div>
-
+        <Collection
+         data={events?.data}
+          emptyTitle="No Events Found" //agr koi event nhi h to ye show hoga
+          emptyStateSubtext="Come back later" // agr koi event nhi h to ye show hoga
+          collectionType="All_Events"// yaha pe collection type ka naam de do...as ye component collection ka ham bhot jgh use krnge so isme collection type ka naam de do
+          limit={6}
+          page={1}
+          totalPages={2}
+        />
       </section>
     </>
   );
