@@ -1,14 +1,22 @@
+import CategoryFilter from "@/components/shared/CategoryFilter";
 import Collection from "@/components/shared/Collection";
+import Search from "@/components/shared/Search";
 import { Button } from "@/components/ui/button";
 import { getAllEvents } from "@/lib/actions/event.actions";
+import Category from "@/lib/database/models/category.model";
+import { SearchParamProps } from "@/types";
 import Image from "next/image";
 import Link from "next/link";
 
-export default async function Home() {
+export default async function Home(props: SearchParamProps) {
+  const { page: pageParam, query: queryParam, category: categoryParam } = await props.searchParams;
+  const page = Number(pageParam) || 1;
+  const searchText = queryParam || '';
+  const category = categoryParam || '';
   const events = await getAllEvents({
-    query: '',
-    category: '',
-    page: 1,
+    query: Array.isArray(searchText) ? searchText[0] : searchText,
+   category: Array.isArray(category) ? category[0] : category,
+    page, // we are passing the page number here
     // page: searchParams.page as string || "1", // if searchParams.page is not present then default to 1
     limit: 6
   })
@@ -44,8 +52,8 @@ export default async function Home() {
       <section id="events" className="wrapper my-8 flex flex-col gap-8 md:gap-12">
         <h2 className="h2-bold">Trusted by <br /> 1000+ Event Organizers </h2>
         <div className="flex w-full flex-col gap-5 md:flex-row">
-          Search 
-          CategoryFilter
+          <Search/>
+         <CategoryFilter/>
         </div>
         <Collection
          data={events?.data}
@@ -53,8 +61,8 @@ export default async function Home() {
           emptyStateSubtext="Come back later" // agr koi event nhi h to ye show hoga
           collectionType="All_Events"// yaha pe collection type ka naam de do...as ye component collection ka ham bhot jgh use krnge so isme collection type ka naam de do
           limit={6}
-          page={1}
-          totalPages={2}
+          page={page} // page number pass kr do
+          totalPages={events?.totalPages} // total pages ka bhi pass kr do
         />
       </section>
     </>

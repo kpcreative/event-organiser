@@ -10,18 +10,22 @@ import { formatDateTime } from "@/lib/utils";
 import { SearchParamProps } from "@/types";
 import Image from "next/image";
 
-const EventDetails = async ({
-  params: { id },
-  searchParams,
-}: SearchParamProps) => {
+
+const EventDetails = async ({ params, searchParams }: SearchParamProps) => {
+   // Await both params and searchParams
+   const resolvedParams = await params;
+   const resolvedSearchParams = await searchParams;
+   
+   const id = resolvedParams?.id; // Ensure params is awaited
+   const page = resolvedSearchParams?.page as string || "1"; // Ensure searchParams is awaited
   const event = await getEventById(id);
 
   const relatedEvents = await getRelatedEventsByCategory({
-    //jis category ka hai us category ka id nikal liya and show kr diya data
     categoryId: event.category._id,
     eventId: event._id,
-    page: searchParams.page as string,
+    page,
   });
+
 
   return (
     <>
@@ -63,7 +67,7 @@ const EventDetails = async ({
             <CheckoutButton event={event} />
 
             <div className="flex flex-col gap-5">
-              <div className="flex gap-2 md:gap-3">
+              <div className="flex gap-2 md:gap-3"> 
                 <Image
                   src="/assets/icons/calendar.svg"
                   alt="calendar"
@@ -122,7 +126,7 @@ const EventDetails = async ({
           emptyStateSubtext="Come back later"
           collectionType="All_Events"
           limit={3}
-          page={searchParams.page as string}
+          page={page}
           totalPages={relatedEvents?.totalPages}
         />
       </section>

@@ -1,6 +1,7 @@
 import { IEvent } from '@/lib/database/models/event.model'
 import React from 'react'
 import Card from './Card'
+import Pagination from './Pagination'
 // import Card from './Card'
 // import Pagination from './Pagination'
 
@@ -41,9 +42,9 @@ const Collection = ({
             })}
           </ul>
 
-          {/* {totalPages > 1 && (
-            // <Pagination urlParamName={urlParamName} page={page} totalPages={totalPages} />
-          )} */}
+          {totalPages > 1 && (
+            <Pagination urlParamName={urlParamName} page={page} totalPages={totalPages} />
+          )}
         </div>
       ): (  
         // dhyan se dekh bhai ye else me hai...upr me dat.lenth>0 hai toh ye else me ayega and dont be confuse yar    

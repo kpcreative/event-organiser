@@ -4,14 +4,17 @@ import { auth } from "@clerk/nextjs/server";
 import { get } from "http";
 
 type UpdateEventProps = {
-    params: {
-        id: string;
-    }
+  params: Promise<{
+      id: string;
+  }>
 }
-const UpdateEvent = async ({params:{id}}:UpdateEventProps) => {
-    const { sessionClaims } = await auth();
-    const userId = sessionClaims?.userId as string;
-    const event = await getEventById(id);
+const UpdateEvent = async ({params}: UpdateEventProps) => {
+  // Await the params before accessing its properties
+  const { id } = await params;
+  
+  const { sessionClaims } = await auth();
+  const userId = sessionClaims?.userId as string;
+  const event = await getEventById(id);
   return (
     <>
    <section className="bg-primary-50 bg-dotted-pattern bg-cover bg-center py-5 md:py-10">
