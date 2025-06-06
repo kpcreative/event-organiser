@@ -15,10 +15,10 @@ const poppins = Poppins({
 
 
 export const metadata: Metadata = {
-  title: "Evently",
-  description: "Evently is the platform for event management, where you can create, manage, and promote your events seamlessly.",
+  title: "Evisto",
+  description: "Evisto is the platform for event management, where you can create, manage, and promote your events seamlessly.",
   icons: {
-    icon: "/assets/images/logo.svg",
+    icon: "/assets/images/logo5.png",
   }
 };
 
