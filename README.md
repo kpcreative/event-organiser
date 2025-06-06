@@ -129,6 +129,25 @@ npm run dev
 Now open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
+------------------------------Images-----------------------------------
+<img width="1440" alt="Screenshot 2025-06-06 at 4 50 26 PM" src="https://github.com/user-attachments/assets/36fc5ae8-e2d2-4f61-9e96-5214f3c988ca" />
+<img width="1440" alt="Screenshot 2025-06-06 at 4 50 32 PM" src="https://github.com/user-attachments/assets/ec0702c4-e0e3-408e-9b50-66019287b766" />
+<img width="1440" alt="Screenshot 2025-06-06 at 4 50 42 PM" src="https://github.com/user-attachments/assets/67a96ea3-7196-4557-9fa1-d59ccd24bc47" />
+<img width="1440" alt="Screenshot 2025-06-06 at 4 50 52 PM" src="https://github.com/user-attachments/assets/ce8bef50-426f-4e7d-ad85-8c1f7d0013a7" />
+<img width="1440" alt="Screenshot 2025-06-06 at 4 50 56 PM" src="https://github.com/user-attachments/assets/b6e51134-5c31-4a51-9e78-432f1d08ef82" />
+<img width="1440" alt="Screenshot 2025-06-06 at 4 51 01 PM" src="https://github.com/user-attachments/assets/cc8ebba3-8a3d-4299-9899-86f395ccea1e" />
+<img width="1440" alt="Screenshot 2025-06-06 at 4 51 41 PM" src="https://github.com/user-attachments/assets/3c3be166-0492-4eee-b0ab-abc9f94e1618" />
+<img width="1440" alt="Screenshot 2025-06-06 at 4 52 10 PM" src="https://github.com/user-attachments/assets/69a88314-e897-4a15-89a2-6d0c23578e9b" />
+<img width="1440" alt="Screenshot 2025-06-06 at 4 52 20 PM" src="https://github.com/user-attachments/assets/6ba39e55-6ab5-48f1-bb2b-0c7d53edf61f" />
+
+
+
+
+
+
+
+
+
 
 ## 📦 Deployment
 
