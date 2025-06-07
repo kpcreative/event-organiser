@@ -12,7 +12,7 @@ import Image from "next/image"
      height={45}
    />
    </Link>
-   <p>2025 Evently. All Rights reserved </p>
+   <p>2025 Evisto. All Rights reserved </p>
 </div>
   </footer>
   )
